@@ -12,8 +12,6 @@ export default function Home() {
         <Flex>
           <Col>
             <Section />
-          </Col>
-          <Col>
             <Section />
           </Col>
           <Col>
@@ -27,8 +25,16 @@ export default function Home() {
           </Col>
           <Col>
             <Section />
+            <Section />
+            <Section />
           </Col>
           <Col>
+            <Section />
+            <Section />
+          </Col>
+          <Col>
+            <Section />
+            <Section />
             <Section />
           </Col>
         </Flex>
@@ -40,6 +46,7 @@ export default function Home() {
 const Main = styled.main`
   width: 100%;
   height: 100%;
+  padding: 10px;
 `;
 
 const Flex = styled.div`
@@ -53,4 +60,5 @@ const Col = styled.div`
   display: flex;
   flex-direction: column;
   flex: 1;
+  gap: 10px;
 `;
