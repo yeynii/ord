@@ -1,12 +1,13 @@
 import Head from "next/head";
+import Section from "../components/Section";
 
 export default function Home() {
   return (
     <>
       <Head>
-        <title>home</title>
+        <title>Home</title>
       </Head>
-      <div>home</div>
+      <Section />
     </>
   );
 }
