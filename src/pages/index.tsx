@@ -1,19 +1,22 @@
 import Section from "@components/Section";
-import { 유닛 } from "@src/constants/character";
+import { 유닛 } from "@src/unit/constants";
+import Unit from "@src/unit/unit";
 import Head from "next/head";
 import { createContext, useState } from "react";
 import styled from "styled-components";
-
 export interface myUnitsConfig {
-  흔함: Record<string, number>;
-  안흔함: Record<string, number>;
-  특별함: Record<string, number>;
+  흔함: [Unit, number];
+  안흔함: [Unit, number];
+  특별함: [Unit, number];
 }
 
-const initUnitValue = Object.keys(유닛).reduce(
-  (prev, curr) => ({
+const initValue = Object.entries(유닛).reduce(
+  (prev, [key, value]) => ({
     ...prev,
-    [curr]: Object.keys(유닛[curr]).reduce((p, c) => ({ ...p, [c]: 0 }), {})
+    [key]: Object.entries(value).reduce(
+      (p, [k, v]) => ({ ...p, [k]: [new Unit({ id: k, ...v }), 0] }),
+      {}
+    )
   }),
   {}
 ) as myUnitsConfig;
@@ -21,7 +24,7 @@ const initUnitValue = Object.keys(유닛).reduce(
 export const unitContext = createContext(null);
 
 export default function Home() {
-  const [myUnits, setMyUnits] = useState<myUnitsConfig>(initUnitValue);
+  const [myUnits, setMyUnits] = useState<myUnitsConfig>(initValue);
   return (
     <unitContext.Provider value={{ myUnits, setMyUnits }}>
       <Head>

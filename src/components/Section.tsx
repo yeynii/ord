@@ -1,4 +1,5 @@
-import { unitContext } from "@src/pages";
+import { myUnitsConfig, unitContext } from "@src/pages";
+import Unit from "@src/unit/unit";
 import { removeString } from "@src/utils/validator";
 import { useContext, useMemo } from "react";
 import styled from "styled-components";
@@ -9,18 +10,15 @@ interface SectionProps {
 
 const Section = ({ type }: SectionProps) => {
   const { myUnits, setMyUnits } = useContext(unitContext);
-  const items = useMemo<Record<string, number>>(
-    () => myUnits[type] as Record<string, number>,
+  const items = useMemo<Record<string, [Unit, number]>>(
+    () => myUnits[type],
     [myUnits, type]
   );
 
   const changeUnitCount = (key: string, value: number) => {
-    const updatedItems = { ...items, [key]: value };
-    setMyUnits((prev) => {
-      const updatedUnits = { ...prev };
-      updatedUnits[type] = updatedItems;
-      return updatedUnits;
-    });
+    const updatedItems = { ...items };
+    updatedItems[key][1] = value;
+    setMyUnits((prev: myUnitsConfig) => ({ ...prev, [type]: updatedItems }));
   };
 
   const handleClickItem = (e, key: string, value: number) => {
@@ -37,9 +35,15 @@ const Section = ({ type }: SectionProps) => {
       <Title>{type}</Title>
       <List>
         {Object.entries(items).map(([key, value]) => (
-          <Item key={key} onClick={(e) => handleClickItem(e, key, value + 1)}>
-            <span>{key}</span>
-            <Count value={value} onChange={(e) => handleInputChange(e, key)} />
+          <Item
+            key={key}
+            onClick={(e) => handleClickItem(e, key, value[1] + 1)}
+          >
+            <span>{value[0].name}</span>
+            <Count
+              value={value[1]}
+              onChange={(e) => handleInputChange(e, key)}
+            />
           </Item>
         ))}
       </List>
