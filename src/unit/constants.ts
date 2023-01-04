@@ -15,14 +15,14 @@ export const UNIT_TYPE = {
 };
 
 export const UNIT_SPRITE_IMAGE = {
-  [UNIT_TYPE_ID.흔함]: "images/흔함.webp",
-  [UNIT_TYPE_ID.안흔함]: "images/안흔함.webp",
-  [UNIT_TYPE_ID.특별함]: "images/특별함.webp"
+  [UNIT_TYPE_흔함]: "images/흔함.webp",
+  [UNIT_TYPE_안흔함]: "images/안흔함.webp",
+  [UNIT_TYPE_특별함]: "images/특별함.webp"
 };
 
 export const UNIT_IMAGE_SIZE = {
-  WIDTH: 65,
-  HEIGHT: 50
+  WIDTH: 25,
+  HEIGHT: 25
 };
 
 const 흔함 = {

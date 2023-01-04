@@ -1,4 +1,5 @@
 import { myUnitsConfig, unitContext, UnitInfo } from "@src/pages";
+import { UNIT_IMAGE_SIZE } from "@src/unit/constants";
 import { removeString } from "@src/utils/validator";
 import { useContext, useMemo } from "react";
 import styled from "styled-components";
@@ -39,7 +40,10 @@ const Section = ({ type }: SectionProps) => {
           const [unit, count] = value;
           return (
             <Item key={key} onClick={(e) => handleClickItem(e, key, count + 1)}>
-              <span>{unit.name}</span>
+              <div>
+                <Thumbnail src={unit.src} top={unit.top} left={unit.left} />
+                <span>{unit.name}</span>
+              </div>
               <div>
                 <span>0%</span>
                 <Count
@@ -87,10 +91,17 @@ const Item = styled.div`
     background-color: #dddddd;
   }
   > div {
-    > span {
-      margin-right: 10px;
-    }
+    display: flex;
+    gap: 10px;
+    align-items: center;
   }
+`;
+
+const Thumbnail = styled.div<{ src: string; top: number; left: number }>`
+  background: ${({ src }) => `url(${src}) no-repeat`};
+  width: ${UNIT_IMAGE_SIZE.WIDTH}px;
+  height: ${UNIT_IMAGE_SIZE.HEIGHT}px;
+  background-position: ${({ top, left }) => `${left}px`};
 `;
 
 const Count = styled.input`
