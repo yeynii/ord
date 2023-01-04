@@ -1,16 +1,21 @@
 import Section from "@components/Section";
-import { 유닛 } from "@src/unit/constants";
+import {
+  UNIT,
+  UNIT_TYPE_안흔함,
+  UNIT_TYPE_특별함,
+  UNIT_TYPE_흔함
+} from "@src/unit/constants";
 import Unit from "@src/unit/unit";
 import Head from "next/head";
 import { createContext, useState } from "react";
 import styled from "styled-components";
+
+export type UnitInfo = [Unit, number];
 export interface myUnitsConfig {
-  흔함: [Unit, number];
-  안흔함: [Unit, number];
-  특별함: [Unit, number];
+  [key: string]: UnitInfo;
 }
 
-const initValue = Object.entries(유닛).reduce(
+const initValue = Object.entries(UNIT).reduce(
   (prev, [key, value]) => ({
     ...prev,
     [key]: Object.entries(value).reduce(
@@ -33,32 +38,12 @@ export default function Home() {
       <Main>
         <Flex>
           <Col>
-            <Section type="흔함" />
-            <Section type="안흔함" />
+            <Section type={UNIT_TYPE_흔함} />
+            <Section type={UNIT_TYPE_안흔함} />
           </Col>
           <Col>
-            <Section type="특별함" />
+            <Section type={UNIT_TYPE_특별함} />
           </Col>
-          {/* <Col>
-            <Section />
-          </Col>
-          <Col>
-            <Section />
-          </Col>
-          <Col>
-            <Section />
-            <Section />
-            <Section />
-          </Col>
-          <Col>
-            <Section />
-            <Section />
-          </Col>
-          <Col>
-            <Section />
-            <Section />
-            <Section />
-          </Col> */}
         </Flex>
       </Main>
     </unitContext.Provider>

@@ -1,5 +1,4 @@
-import { myUnitsConfig, unitContext } from "@src/pages";
-import Unit from "@src/unit/unit";
+import { myUnitsConfig, unitContext, UnitInfo } from "@src/pages";
 import { removeString } from "@src/utils/validator";
 import { useContext, useMemo } from "react";
 import styled from "styled-components";
@@ -10,10 +9,12 @@ interface SectionProps {
 
 const Section = ({ type }: SectionProps) => {
   const { myUnits, setMyUnits } = useContext(unitContext);
-  const items = useMemo<Record<string, [Unit, number]>>(
+  const items = useMemo<Record<string, UnitInfo>>(
     () => myUnits[type],
     [myUnits, type]
   );
+
+  console.table(myUnits[type]);
 
   const changeUnitCount = (key: string, value: number) => {
     const updatedItems = { ...items };
@@ -34,18 +35,21 @@ const Section = ({ type }: SectionProps) => {
     <Container>
       <Title>{type}</Title>
       <List>
-        {Object.entries(items).map(([key, value]) => (
-          <Item
-            key={key}
-            onClick={(e) => handleClickItem(e, key, value[1] + 1)}
-          >
-            <span>{value[0].name}</span>
-            <Count
-              value={value[1]}
-              onChange={(e) => handleInputChange(e, key)}
-            />
-          </Item>
-        ))}
+        {Object.entries(items).map(([key, value]) => {
+          const [unit, count] = value;
+          return (
+            <Item key={key} onClick={(e) => handleClickItem(e, key, count + 1)}>
+              <span>{unit.name}</span>
+              <div>
+                <span>0%</span>
+                <Count
+                  value={count}
+                  onChange={(e) => handleInputChange(e, key)}
+                />
+              </div>
+            </Item>
+          );
+        })}
       </List>
     </Container>
   );
@@ -82,10 +86,16 @@ const Item = styled.div`
   :active {
     background-color: #dddddd;
   }
+  > div {
+    > span {
+      margin-right: 10px;
+    }
+  }
 `;
 
 const Count = styled.input`
   width: 2rem;
+  text-align: right;
 `;
 
 export default Section;

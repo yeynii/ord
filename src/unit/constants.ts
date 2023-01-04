@@ -1,13 +1,17 @@
-export const enum UNIT_TYPE_ID {
-  흔함 = "00",
-  안흔함 = "01",
-  특별함 = "02"
-}
+export const UNIT_TYPE_흔함 = "흔함";
+export const UNIT_TYPE_안흔함 = "안흔함";
+export const UNIT_TYPE_특별함 = "특별함";
+
+export const UNIT_TYPE_ID = {
+  [UNIT_TYPE_흔함]: "00",
+  [UNIT_TYPE_안흔함]: "01",
+  [UNIT_TYPE_특별함]: "02"
+};
 
 export const UNIT_TYPE = {
-  [UNIT_TYPE_ID.흔함]: "흔함",
-  [UNIT_TYPE_ID.안흔함]: "안흔함",
-  [UNIT_TYPE_ID.특별함]: "특별함"
+  [UNIT_TYPE_ID[UNIT_TYPE_흔함]]: UNIT_TYPE_흔함,
+  [UNIT_TYPE_ID[UNIT_TYPE_안흔함]]: UNIT_TYPE_안흔함,
+  [UNIT_TYPE_ID[UNIT_TYPE_특별함]]: UNIT_TYPE_특별함
 };
 
 export const UNIT_SPRITE_IMAGE = {
@@ -281,7 +285,7 @@ const 특별함 = {
 //   ["핸콕"]: "핸콕"
 // };
 
-export const 유닛 = {
+export const UNIT = {
   흔함,
   안흔함,
   특별함
